@@ -1,0 +1,32 @@
+{
+    "Mario": {
+        "Speed": 4,
+        "Maneuverability": 3,
+        "Power": 3
+    },
+    "Peach": {
+        "Speed": 3,
+        "Maneuverability": 4,
+        "Power": 2
+    },
+    "Yoshi": {
+        "Speed": 2,
+        "Maneuverability": 4,
+        "Power": 3
+    },
+    "Bowser": {
+        "Speed": 5,
+        "Maneuverability": 2,
+        "Power": 5
+    },
+    "Luigi": {
+        "Speed": 3,
+        "Maneuverability": 4,
+        "Power": 4
+    },
+    "Donkey Kong": {
+        "Speed": 2,
+        "Maneuverability": 2,
+        "Power": 5
+    }
+}

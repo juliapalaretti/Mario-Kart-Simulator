@@ -99,3 +99,19 @@
 <b>Winning condition:</b>
 
 <p>At the end, the winner is the one with most points.</p>
+
+
+<h3>🎮 New Implementations:</h3>
+
+<b>Mecanics:</b>
+
+<ul>
+  <li><p>The player will select one character at the start of the game</p></li>
+  <li><p>There will be 10 rounds in the game.</p></li>
+  <li><p>The confront will be enhanced and there will be two types of penalties: Turtle shell (-1 point) or bomb (-2 points). The winner can also randomly get a star bonus (+1 point).</p></li>
+</ul>
+
+<b>Code:</b>
+<ul>
+    <li><p>The characters will be in a separate JSON file.</p></li>
+</ul>

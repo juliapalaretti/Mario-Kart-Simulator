@@ -34,8 +34,75 @@ async function logRollResult(characterName, block, diceResult, attribute) {
     console.log(`${characterName} 🎲 rolled a dice of ${block} ${diceResult} + ${attribute} = ${diceResult + attribute}`);
 }
 
+/* logic for straight and curve tracks
+async function normalBlockRace(track) {
+    let attribute = "";
+    let playerAttributePoints1 = 0;
+    let playerAttributePoints2 = 0;
+
+    if (track === "Straight") {
+        attribute = "speed";
+        playerAttributePoints1 = player1.speed;
+        playerAttributePoints2 = player2.speed;
+    }
+    if (track === "Curve") {
+        attribute = "maneuverability";
+        playerAttributePoints1 = player1.maneuverability;
+        playerAttributePoints2 = player2.maneuverability;
+    }
+
+    totalSkillTestPoints1 = diceResult1 = playerAttributePoints1;
+    totalSkillTestPoints2 = diceResult2 = playerAttributePoints2;
+
+    await logRollResult (player1.name, attribute, diceResult1, playerAttributePoints1);
+    await logRollResult (player2.name, attribute, diceResult2, playerAttributePoints2);
+} */
+
+async function confrontBlockRace(diceResult1, diceResult2) {
+    let powerSkillTestResult1 = diceResult1 + player1.power;
+    let powerSkillTestResult2 = diceResult2 + player2.power;
+
+    console.log(`${player1.name} confronted ${player2.name}! 🥊`);
+    await logRollResult(player1.name, "power", diceResult1, player1.power);
+    await logRollResult(player2.name, "power", diceResult2, player2.power);
+
+    let penalty = rollDice() >= 3 ? "bomb" : "turtle shell";
+
+    if (powerSkillTestResult2 > powerSkillTestResult1) {
+        console.log(`${player2.name} won the confront!`);
+        if (penalty === "turtle shell" && player1.points > 0) {
+            player1.points--;
+            console.log(`${player1.name} lost a point 🐢.`);
+        }
+        else if (penalty === "bomb" && player1.points > 1) {
+            player1.points = player1.points - 2;
+            console.log(`${player1.name} lost 2 points 💣.`);
+        }
+        else {
+            console.log(`${player1.name} has no points to lose.`);
+            player1.points = 0;
+        }
+    }
+    if (powerSkillTestResult1 > powerSkillTestResult2 && player2.points > 0) {
+        console.log(`${player1.name} won the confront!`);
+        if (penalty === "turtle shell" && player2.points > 0) {
+            player2.points--;
+            console.log(`${player2.name} lost a point 🐢.`);
+        }
+        else if (penalty === "bomb" && player2.points > 1) {
+            player2.points = player2.points - 2;
+            console.log(`${player2.name} lost 2 points 💣.`);
+        }
+        else {
+            console.log(`${player2.name} has no points to lose.`);
+            player2.points = 0;
+        }
+    }
+    console.log(powerSkillTestResult2 === powerSkillTestResult1 ? 'Draw! None of the players lost a point.' : "" );
+}
+
 async function playRaceEngine(character1, character2) {
-    for(let round = 1; round <= 5; round++) {
+    for(let round = 1; round <= 10; round++) {
         console.log(`🏁 Round ${round}`);
 
         // random road block
@@ -63,21 +130,7 @@ async function playRaceEngine(character1, character2) {
             await logRollResult(character2.name, "maneuverability", diceResult2, character2.maneuverability);
         }
         if (block === 'Confront') {
-            let powerSkillTestResult1 = diceResult1 + player1.power;
-            let powerSkillTestResult2 = diceResult2 + player2.power;
-            console.log(`${character1.name} confronted ${character2.name}! 🥊`);
-            await logRollResult(character1.name, "power", diceResult1, character1.power);
-            await logRollResult(character2.name, "power", diceResult2, character2.power);
-
-            if (powerSkillTestResult2 > powerSkillTestResult1 && character1.points > 0) {
-                console.log(`${character2.name} won the confront! ${character1.name} lost a point 🐢.`);
-                character1.points--;
-            }
-            if (powerSkillTestResult1 > powerSkillTestResult2 && character2.points > 0) {
-                console.log(`${character1.name} won the confront! ${character2.name} lost a point 🐢.`);
-                character2.points--;
-            }
-            console.log(powerSkillTestResult2 === powerSkillTestResult1 ? 'Draw! None of the players lost a point.' : '');
+            await confrontBlockRace(diceResult1, diceResult2);
         }
 
         // verifying the winner of the round
