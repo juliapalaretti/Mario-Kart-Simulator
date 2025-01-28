@@ -1,16 +1,18 @@
+import characters from "./characters.js";
+
 const player1 = {
-    name: "Mario",
-    speed: 4,
-    maneuverability: 3,
-    power: 3,
+    name: characters[0].Name,
+    speed: characters[0].Speed,
+    maneuverability: characters[0].Maneuverability,
+    power: characters[0].Power,
     points: 0
 };
 
 const player2 = {
-    name: "Luigi",
-    speed: 3,
-    maneuverability: 4,
-    power: 4,
+    name: characters[1].Name,
+    speed: characters[1].Speed,
+    maneuverability: characters[1].Maneuverability,
+    power: characters[1].Power,
     points: 0
 };
 
